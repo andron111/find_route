@@ -10,3 +10,5 @@ def home(request):
 def about(request):
     name = 'Nadia'
     return render(request, 'about.html', {'name': name})
+
+

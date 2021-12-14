@@ -3,7 +3,11 @@
 
 {% block content %}
 <h1>Удаление города</h1>
-<p>{{ object }}</p>
+
+
+<p>Вы уверены, что хотите удалить {{ object }}?</p>
+
+<!--<p>{{ object }}</p>-->
 
 {% include 'form.html' with button='Удалить' %}
 

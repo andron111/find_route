@@ -3,14 +3,47 @@
 
 {% block content %}
 <h1>Список городов</h1>
-<div class="row">
-    <div class="col-md">
-        {% for object in objects_list %}
-                <p>
-                <a href="{% url 'cities:detail' pk=object.pk %}">{{ object.name }}</a>
-                </p>
+<div class="row ">
+    <div class="col-md-8 mx-auto my-2">
+        <table class="table table-striped">
+        {% for object in page_obj %}
+            <tr>
+                <td>
+                    <a href="{% url 'cities:detail' pk=object.pk %}">{{ object.name }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'cities:update' pk=object.pk %}">
+                        <button type="submit" class="btn btn-primary">Редактировать</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'cities:delete' pk=object.pk %}">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </a>
+                </td>
+            </tr>
+
+                
         {% endfor %}
+        </table>
     </div>
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 <div class="row">
     <div class="col-md-4">

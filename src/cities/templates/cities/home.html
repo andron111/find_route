@@ -22,32 +22,44 @@
                     </a>
                 </td>
             </tr>
-
-                
         {% endfor %}
         </table>
     </div>
 </div>
-<div class="pagination">
-    <span class="step-links">
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
         {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+    </li>
+      {% for page in page_obj.paginator.page_range %}
 
+        <li class="page-item {% if page == page_obj.number %} active {% endif %}">
+            <a class="page-link" href="?page={{ page }}">
+                {{ page }}
+            </a>
+        </li>
+      {% endfor %}
+
+    <li class="page-item">
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
         {% endif %}
-    </span>
-</div>
+    </li>
+
+
+  </ul>
+</nav>
 <div class="row">
     <div class="col-md-4">
-        <form action="" method="post"> {% csrf_token %}
+        <form action="{% url 'cities:create' %}" method="post"> {% csrf_token %}
     {{ form.as_p }}
   <input type="submit" value="Submit">
 </form>

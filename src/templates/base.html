@@ -1,4 +1,7 @@
-<!--{% url 'cities:home' as cities_home_url %}-->
+{% url 'cities:home' as cities_home_url %}
+{% url 'cities:create' as cities_create_url %}
+{% url 'trains:home' as trains_home_url %}
+{% url 'trains:create' as trains_create_url %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,23 +23,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'cities:home' %}">Города</a>
+        <li class="nav-item ">
+          <a class="nav-link {% if request.path == cities_home_url %} active {% endif %}"
+             aria-current="page" href="{% url 'cities:home' %}">Города</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link {% if request.path == trains_home_url %} active {% endif %}"
+             aria-current="page" href="{% url 'trains:home' %}">Поезда</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle
+          {% if request.path == cities_create_url or request.path == trains_create_url %} active {% endif %}"
+             href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Добавить
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="{% url 'cities:create' %}">Новый город</a></li>
+            <li><a class="dropdown-item" href="{% url 'trains:create' %}">Новый поезд</a></li>
           </ul>
         </li>
       </ul>
